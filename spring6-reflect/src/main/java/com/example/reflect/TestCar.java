@@ -3,6 +3,8 @@ package com.example.reflect;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public class TestCar {
 
@@ -51,10 +53,61 @@ public class TestCar {
     }
 
 
-//    获取属性
+    //    获取属性
     @Test
     public void test03() throws Exception {
-        Class class1 = Car.class;
+        Class clazz = Car.class;
+        Car car = (Car) clazz.getDeclaredConstructor().newInstance();
+
+        //获取所有public属性
+        Field[] fields = clazz.getFields();
+        //获取所有属性（包括private私有属性）
+        Field[] declaredFields = clazz.getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            if (declaredField.getName().equals("name")) {
+                //设置允许访问
+                declaredField.setAccessible(true);
+                declaredField.set(car, "byd");
+            }
+
+            System.out.println(declaredField.getName());
+            System.out.println(car);
+        }
+    }
+
+
+    //获取方法
+    @Test
+    public void test04() throws Exception {
+
+        Car car = new Car("byd", 10, "red");
+        Class clazz = car.getClass();
+
+//        public方法
+        Method[] methods = clazz.getMethods();
+        for (Method method : methods) {
+//            System.out.println(method.getName());
+            //执行方法 toString
+            if (method.getName().equals("toString")) {
+                String invoke = (String) method.invoke(car);
+                System.out.println("toString method execute" + invoke);
+            }
+
+        }
+
+
+//        private方法
+        Method[] methodsAll = clazz.getDeclaredMethods();
+        for (Method method : methodsAll) {
+//            System.out.println(method.getName());
+            //执行方法 run
+            if (method.getName().equals("run")) {
+                method.setAccessible(true);
+                method.invoke(car);
+
+            }
+
+        }
     }
 
 }
