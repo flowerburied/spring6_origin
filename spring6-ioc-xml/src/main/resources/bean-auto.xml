@@ -14,7 +14,7 @@
     <!--    <bean id="userDao" class="com.example.spring6.iocxml.auto.dao.impl.UserDaoImpl">-->
     <!--    </bean>-->
 
-    <!--根据名称自动装配-->
+    <!--根据名称自动装配 （不能变更id）-->
     <bean id="userController" class="com.example.spring6.iocxml.auto.controller.UserController"
           autowire="byName">
     </bean>
