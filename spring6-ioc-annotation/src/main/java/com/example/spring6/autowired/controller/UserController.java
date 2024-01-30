@@ -13,9 +13,23 @@ public class UserController {
 //    private UserService userService;
 
     //第二种方式 set
+//    private UserService userService;
+//    @Autowired
+//    public void setUserService(UserService userService) {
+//        this.userService = userService;
+//    }
+
+    //    第三种方式 构造方法注入
+//    private UserService userService;
+//    @Autowired
+//    public UserController(UserService userService) {
+//        this.userService = userService;
+//    }
+
+    //    第四种方式 形参上注入
     private UserService userService;
 
-    public void setUserService(UserService userService) {
+    public UserController(@Autowired UserService userService) {
         this.userService = userService;
     }
 
