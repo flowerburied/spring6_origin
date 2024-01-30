@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="studentp"
+          class="com.example.spring6.iocxml.dimap.Student"
+          p:id="10086"
+          p:name="mary"
+          p:lessonList-ref="lessonList"
+          p:teacherMap-ref="teacherMap"></bean>
+
+    <util:list id="lessonList">
+        <ref bean="lesson1"></ref>
+        <ref bean="lesson2"></ref>
+    </util:list>
+
+    <util:map id="teacherMap">
+        <entry>
+            <key>
+                <value>10010</value>
+            </key>
+            <ref bean="teacher1"></ref>
+        </entry>
+        <entry>
+            <key>
+                <value>10086</value>
+            </key>
+            <ref bean="teacher2"></ref>
+        </entry>
+    </util:map>
+
+    <bean id="lesson1" class="com.example.spring6.iocxml.dimap.Lesson">
+        <property name="name" value="zs1"></property>
+    </bean>
+
+    <bean id="lesson2" class="com.example.spring6.iocxml.dimap.Lesson">
+        <property name="name" value="zs2"></property>
+    </bean>
+
+    <bean id="teacher1" class="com.example.spring6.iocxml.dimap.Teacher">
+        <property name="id" value="100"></property>
+        <property name="name" value="zs"></property>
+    </bean>
+    <bean id="teacher2" class="com.example.spring6.iocxml.dimap.Teacher">
+        <property name="id" value="102"></property>
+        <property name="name" value="zs2"></property>
+    </bean>
+
+    <bean id="student" class="com.example.spring6.iocxml.dimap.Student">
+        <property name="id" value="1000"></property>
+        <property name="name" value="lis"></property>
+
+        <!--注入list、map类型属性-->
+        <property name="lessonList" ref="lessonList"></property>
+        <property name="teacherMap" ref="teacherMap"></property>
+    </bean>
+
+</beans>

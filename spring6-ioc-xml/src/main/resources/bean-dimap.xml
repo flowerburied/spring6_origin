@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--    map-->
+    <bean id="teacher1" class="com.example.spring6.iocxml.dimap.Teacher">
+        <property name="id" value="100"></property>
+        <property name="name" value="zs"></property>
+    </bean>
+    <bean id="teacher2" class="com.example.spring6.iocxml.dimap.Teacher">
+        <property name="id" value="102"></property>
+        <property name="name" value="zs2"></property>
+    </bean>
+
+    <bean id="student" class="com.example.spring6.iocxml.dimap.Student">
+        <property name="id" value="1000"></property>
+        <property name="name" value="lis"></property>
+
+        <property name="teacherMap">
+            <map>
+                <entry>
+                    <key>
+                        <value>10010</value>
+                    </key>
+                    <ref bean="teacher1"></ref>
+                </entry>
+                <entry>
+                    <key>
+                        <value>10012</value>
+                    </key>
+                    <ref bean="teacher2"></ref>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>
