@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 @Bean
 public class UserDaoImpl implements UserDao {
 
-    @Di
-    UserDao userDao;
 
+    @Override
+    public void add() {
+        System.out.println("dao....");
+    }
 }

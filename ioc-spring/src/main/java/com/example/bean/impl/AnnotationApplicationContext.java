@@ -41,7 +41,7 @@ public class AnnotationApplicationContext implements ApplicationContext {
                 URL url = urls.nextElement();
                 String filePath = URLDecoder.decode(url.getFile(), "utf-8");
 
-//                System.out.println("filePath===" + filePath);
+                System.out.println("filePath===" + filePath);
                 //获取包前置路径，字符串的截取
                 rootPath = filePath.substring(0, filePath.length() - packagePath.length());
 
@@ -71,13 +71,14 @@ public class AnnotationApplicationContext implements ApplicationContext {
             }
             //不为空,遍历文件夹所有内容
             for (File child : childrenFiles) {
+//                System.out.println("child.isDirectory()===" + child.isDirectory());
                 //继续判断是否为文件夹，递归
-                if (file.isDirectory()) {
+                if (child.isDirectory()) {
                     loadBean(child);
                 } else {
                     //得到文件，获取包路径+类名称部分 - 字符串截取
                     String pathWithClass = child.getAbsolutePath().substring(rootPath.length() - 1);
-                    System.out.println("pathWithClass===" + pathWithClass);
+//                    System.out.println("pathWithClass===" + pathWithClass);
 
                     //判断文件类型是否为.class
 
