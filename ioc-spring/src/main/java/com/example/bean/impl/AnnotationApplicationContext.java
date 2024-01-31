@@ -1,16 +1,19 @@
 package com.example.bean.impl;
 
 import com.example.anno.Bean;
+import com.example.anno.Di;
 import com.example.bean.ApplicationContext;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class AnnotationApplicationContext implements ApplicationContext {
 
@@ -54,8 +57,12 @@ public class AnnotationApplicationContext implements ApplicationContext {
             throw new RuntimeException(e);
         }
 
+        //属性注入
+        loadDi();
+
 
     }
+
 
     //包扫描的过程，构建实例化
     private void loadBean(File file) throws Exception {
@@ -119,7 +126,40 @@ public class AnnotationApplicationContext implements ApplicationContext {
         }
     }
 
+    //属性注入
+    private void loadDi() {
+        //实例化对象都在beanFactory的map集合里
+        Set<Map.Entry<Class, Object>> entries = beanFactory.entrySet();
 
+        for (Map.Entry<Class, Object> entry : entries) {
+            //获取map集合的每个对象
+            Object obj = entry.getValue();
+            //获取对象class
+            Class<?> clazz = obj.getClass();
+            //获取每个对象的属性
+            Field[] declaredFields = clazz.getDeclaredFields();
+
+            for (Field field : declaredFields) {
+                //判断属性上是否有@Di注解
+                Di annotation = field.getAnnotation(Di.class);
+                if (annotation != null) {
+                    //如果是私有属性，设置可以设置
+                    field.setAccessible(true);
+                    //对象进行注入
+                    try {
+                        field.set(obj, beanFactory.get(field.getType()));
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+
+            }
+
+        }
+
+
+    }
 //    public static void main(String[] args) {
 //        AnnotationApplicationContext context = new AnnotationApplicationContext("com.example");
 //        context.getBean()
