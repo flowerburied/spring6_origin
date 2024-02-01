@@ -15,6 +15,7 @@
         <module>spring6-reflect</module>
         <module>ioc-spring</module>
         <module>spring6-aop</module>
+        <module>spring6-junit</module>
     </modules>
 
     <properties>
@@ -22,6 +23,26 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
     <dependencies>
+        <!--spring 整合junit相关依赖-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>6.0.2</version>
+        </dependency>
+
+        <!--junit-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.9.0</version>
+        </dependency>
+
+        <!-- junit测试 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+        </dependency>
 
         <!--spring aop依赖-->
         <dependency>
