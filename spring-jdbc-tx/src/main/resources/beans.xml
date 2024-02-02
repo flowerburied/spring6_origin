@@ -31,6 +31,11 @@
         <property name="dataSource" ref="druidDataSource"></property>
     </bean>
 
-
+    <!--
+        开启事务的注解驱动
+        通过注解@Transactional所标识的方法或标识的类中所有的方法，都会被事务管理器管理事务
+    -->
+    <!-- transaction-manager属性的默认值是transactionManager，如果事务管理器bean的id正好就是这个默认值，则可以省略这个属性 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
 
 </beans>
